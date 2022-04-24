@@ -715,7 +715,7 @@ class LongT5LocalAttention(nn.Module):
         # Mask heads if we want to
         if layer_head_mask is not None:
             attn_weights = attn_weights * layer_head_mask
-        attn_weights = attn_weights.type(value_states.dtype)
+
         attn_output = unshape(torch.einsum("...hqk,...khd->...qhd", attn_weights, value_states))
         attn_output = attn_output[:, :seq_length, :]
         attn_output = self.o(attn_output)
@@ -974,7 +974,7 @@ class LongT5TransientGlobalAttention(nn.Module):
         # Mask heads if we want to
         if layer_head_mask is not None:
             attn_weights = attn_weights * layer_head_mask
-        attn_weights = attn_weights.type(value_states.dtype)
+
         attn_output = unshape(torch.einsum("...hqk,...khd->...qhd", attn_weights, value_states))
         attn_output = attn_output[:, :seq_length, :]
         attn_output = self.o(attn_output)
